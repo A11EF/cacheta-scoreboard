@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102a23" />
+    <meta
+      name="description"
+      content="Marcador de pontos para partidas de Cacheta."
+    />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Placar de Cacheta</title>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div class="brand-mark" aria-hidden="true">♠</div>
+        <div>
+          <p class="eyebrow">MARÇADOR DE PARTIDA</p>
+          <h1>Cacheta</h1>
+        </div>
+      </header>
+
+      <p id="notice" class="notice" role="status" hidden></p>
+
+      <section id="setup-screen" class="panel" aria-labelledby="setup-title">
+        <p class="eyebrow">NOVA PARTIDA</p>
+        <h2 id="setup-title">Quem vai jogar?</h2>
+        <p class="muted">
+          Cadastre os participantes. Com mais de 5 jogadores, a primeira fase
+          distribui 9 pontos; com até 5, distribui 7.
+        </p>
+
+        <form id="setup-form">
+          <div id="player-list" class="player-list"></div>
+          <button id="add-player" class="button button-secondary" type="button">
+            <span aria-hidden="true">＋</span> Adicionar jogador
+          </button>
+          <p id="setup-error" class="form-error" role="alert" hidden></p>
+          <button class="button button-primary button-wide" type="submit">
+            Começar partida
+          </button>
+        </form>
+      </section>
+
+      <section id="game-screen" hidden aria-labelledby="game-title">
+        <div class="game-heading">
+          <div>
+            <p id="phase-label" class="eyebrow"></p>
+            <h2 id="game-title">Placar</h2>
+          </div>
+          <button id="new-game" class="button button-quiet" type="button">
+            Nova partida
+          </button>
+        </div>
+
+        <section class="phase-card" aria-live="polite">
+          <div id="phase-symbol" class="phase-symbol" aria-hidden="true">✦</div>
+          <div>
+            <h3 id="phase-title"></h3>
+            <p id="phase-description" class="muted"></p>
+          </div>
+          <div id="pool-counter" class="pool-counter" hidden></div>
+        </section>
+
+        <section aria-labelledby="players-title">
+          <div class="section-heading">
+            <h3 id="players-title">Jogadores</h3>
+            <span id="active-count" class="muted"></span>
+          </div>
+          <div id="scoreboard" class="scoreboard"></div>
+        </section>
+
+        <form id="round-form" class="panel round-panel">
+          <p class="eyebrow">REGISTRAR RODADA</p>
+          <label class="field-label" for="round-winner">Quem venceu?</label>
+          <select id="round-winner" name="winner" required></select>
+
+          <fieldset id="win-type-options">
+            <legend>Como venceu?</legend>
+            <label class="choice">
+              <input type="radio" name="win-type" value="regular" checked />
+              <span>Vitória normal <strong>1 ponto</strong></span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="win-type" value="ten-cards" />
+              <span>Bateu com 10 cartas <strong>2 pontos</strong></span>
+            </label>
+          </fieldset>
+
+          <p id="round-error" class="form-error" role="alert" hidden></p>
+          <button
+            id="record-round"
+            class="button button-primary button-wide"
+            type="submit"
+          >
+            Registrar vitória
+          </button>
+        </form>
+
+        <section class="history-section" aria-labelledby="history-title">
+          <div class="section-heading">
+            <h3 id="history-title">Rodadas</h3>
+            <button id="undo-round" class="button button-quiet" type="button">
+              Desfazer última
+            </button>
+          </div>
+          <ol id="round-history" class="round-history"></ol>
+          <p id="empty-history" class="muted">Nenhuma rodada registrada ainda.</p>
+        </section>
+      </section>
+
+      <footer class="app-footer">
+        <span>As regras podem variar de mesa para mesa.</span>
+      </footer>
+    </main>
+    <script type="module" src="./app.mjs"></script>
+  </body>
+</html>
